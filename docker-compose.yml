@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  lambda-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lambda-frontend
+    restart: unless-stopped
+    depends_on:
+      - lambda-backend
+
+  lambda-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: lambda-backend
+    restart: unless-stopped
+
+  lambda-cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: lambda-tunnel
+    command: tunnel run --token ${LAMBDA_TUNNEL_TOKEN}
+    restart: unless-stopped
+    depends_on:
+      - lambda-frontend
