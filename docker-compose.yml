@@ -18,7 +18,7 @@ services:
   lambda-cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: lambda-tunnel
-    command: tunnel run --token ${LAMBDA_TUNNEL_TOKEN}
+    command: ["tunnel", "run", "--token", "${LAMBDA_TUNNEL_TOKEN}"]
     restart: unless-stopped
     depends_on:
       - lambda-frontend
