@@ -18,5 +18,4 @@ yarn-error.log*
 # Docker
 *.log
 
-*package.json
 *package-lock.json
